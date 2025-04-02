@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Home, Search, User, MessageSquare, TrendingUp, Mail, Menu, X } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
 import FeaturedListings from './components/FeaturedListings';
 import PropertySearch from './components/PropertySearch';
 import AboutRealtor from './components/AboutRealtor';
@@ -11,6 +13,32 @@ import Navigation from './components/Navigation';
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 }
+  };
+
+  const SectionWrapper = ({ children, id }: { children: React.ReactNode; id: string }) => {
+    const [ref, inView] = useInView({
+      triggerOnce: true,
+      threshold: 0.1
+    });
+
+    return (
+      <motion.section
+        ref={ref}
+        id={id}
+        initial="hidden"
+        animate={inView ? "visible" : "hidden"}
+        variants={fadeInUp}
+        transition={{ duration: 0.6 }}
+        className="py-16"
+      >
+        {children}
+      </motion.section>
+    );
+  };
+
   return (
     <div className="min-h-screen bg-white">
       {/* Navigation */}
@@ -18,8 +46,10 @@ function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
             <div className="flex items-center">
-              <Home className="h-8 w-8 text-slate-800" />
-              <span className="ml-2 text-xl font-semibold text-slate-800">Lisa Bricker Real Estate</span>
+              <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-slate-900">
+                <Home className="h-6 w-6 text-white" />
+              </div>
+              <span className="ml-3 text-xl font-semibold text-slate-800 tracking-tight">Chandler Real Estate Group</span>
             </div>
             
             {/* Desktop Navigation */}
@@ -50,13 +80,17 @@ function App() {
       </nav>
 
       {/* Hero Section */}
-      <div 
-        className="relative h-screen bg-cover bg-center"
+      <motion.div 
+        id="home"
+        className="relative h-screen bg-cover bg-center bg-no-repeat"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
         style={{
-          backgroundImage: 'url("https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80")'
+          backgroundImage: 'url("https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1")'
         }}
       >
-        <div className="absolute inset-0 bg-black/40"></div>
+        <div className="absolute inset-0 bg-black/50"></div>
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="text-center text-white px-4">
             <h1 className="text-4xl md:text-6xl font-bold mb-4">Luxury Living in College Station</h1>
@@ -66,16 +100,28 @@ function App() {
             </button>
           </div>
         </div>
-      </div>
+      </motion.div>
 
       {/* Main Content */}
       <main>
-        <FeaturedListings />
-        <PropertySearch />
-        <AboutRealtor />
-        <Testimonials />
-        <MarketInsights />
-        <ContactForm />
+        <SectionWrapper id="properties">
+          <FeaturedListings />
+        </SectionWrapper>
+        <SectionWrapper id="property-search">
+          <PropertySearch />
+        </SectionWrapper>
+        <SectionWrapper id="about">
+          <AboutRealtor />
+        </SectionWrapper>
+        <SectionWrapper id="testimonials">
+          <Testimonials />
+        </SectionWrapper>
+        <SectionWrapper id="market-insights">
+          <MarketInsights />
+        </SectionWrapper>
+        <SectionWrapper id="contact">
+          <ContactForm />
+        </SectionWrapper>
       </main>
 
       {/* Footer */}
@@ -83,7 +129,7 @@ function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
-              <h3 className="text-lg font-semibold mb-4">Lisa Bricker Real Estate</h3>
+              <h3 className="text-lg font-semibold mb-4">Chandler Real Estate Group</h3>
               <p className="text-slate-400">Your trusted partner in luxury real estate across College Station, Texas.</p>
             </div>
             <div>
@@ -101,7 +147,7 @@ function App() {
                 <li>123 Main Street</li>
                 <li>College Station, TX 77840</li>
                 <li>979-123-4567</li>
-                <li>contact@lisabricker.com</li>
+                <li>contact@chandlerrealestate.com</li>
               </ul>
             </div>
             <div>
@@ -112,7 +158,7 @@ function App() {
             </div>
           </div>
           <div className="mt-8 pt-8 border-t border-slate-800 text-center text-slate-400">
-            <p>&copy; 2024 Lisa Bricker Real Estate. All rights reserved.</p>
+            <p>&copy; 2024 Chandler Real Estate Group. All rights reserved.</p>
           </div>
         </div>
       </footer>
