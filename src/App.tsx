@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Home, Search, User, MessageSquare, TrendingUp, Mail, Menu, X } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
 import FeaturedListings from './components/FeaturedListings';
 import PropertySearch from './components/PropertySearch';
 import AboutRealtor from './components/AboutRealtor';
@@ -9,9 +10,11 @@ import Testimonials from './components/Testimonials';
 import MarketInsights from './components/MarketInsights';
 import ContactForm from './components/ContactForm';
 import Navigation from './components/Navigation';
+import ExploreProperties from './pages/ExploreProperties';
 
-function App() {
+function HomePage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   const fadeInUp = {
     hidden: { opacity: 0, y: 20 },
@@ -32,7 +35,7 @@ function App() {
         animate={inView ? "visible" : "hidden"}
         variants={fadeInUp}
         transition={{ duration: 0.6 }}
-        className="py-16"
+        className="py-4"
       >
         {children}
       </motion.section>
@@ -46,10 +49,12 @@ function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
             <div className="flex items-center">
-              <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-slate-900">
-                <Home className="h-6 w-6 text-white" />
-              </div>
-              <span className="ml-3 text-xl font-semibold text-slate-800 tracking-tight">Chandler Real Estate Group</span>
+              <Link to="/" className="flex items-center">
+                <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-slate-900">
+                  <div className="text-white text-2xl font-bold">CRG</div>
+                </div>
+                <span className="ml-3 text-xl font-semibold text-slate-800 tracking-tight">Chandler Real Estate Group</span>
+              </Link>
             </div>
             
             {/* Desktop Navigation */}
@@ -95,7 +100,10 @@ function App() {
           <div className="text-center text-white px-4">
             <h1 className="text-4xl md:text-6xl font-bold mb-4">Luxury Living in College Station</h1>
             <p className="text-xl md:text-2xl mb-8">Discover Your Dream Home in Aggieland</p>
-            <button className="bg-white text-slate-800 px-8 py-3 rounded-md text-lg font-semibold hover:bg-slate-100 transition duration-300">
+            <button 
+              onClick={() => navigate('/explore')}
+              className="bg-white text-slate-800 px-8 py-3 rounded-md text-lg font-semibold hover:bg-slate-100 transition duration-300"
+            >
               Explore Properties
             </button>
           </div>
@@ -106,9 +114,6 @@ function App() {
       <main>
         <SectionWrapper id="properties">
           <FeaturedListings />
-        </SectionWrapper>
-        <SectionWrapper id="property-search">
-          <PropertySearch />
         </SectionWrapper>
         <SectionWrapper id="about">
           <AboutRealtor />
@@ -135,10 +140,10 @@ function App() {
             <div>
               <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
               <ul className="space-y-2 text-slate-400">
-                <li>Home</li>
-                <li>Properties</li>
-                <li>About</li>
-                <li>Contact</li>
+                <li><Link to="/">Home</Link></li>
+                <li><Link to="/explore">Properties</Link></li>
+                <li><Link to="/#about">About</Link></li>
+                <li><Link to="/#contact">Contact</Link></li>
               </ul>
             </div>
             <div>
@@ -163,6 +168,17 @@ function App() {
         </div>
       </footer>
     </div>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/explore" element={<ExploreProperties />} />
+      </Routes>
+    </Router>
   );
 }
 

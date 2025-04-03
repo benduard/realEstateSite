@@ -27,25 +27,25 @@ export const ContainerScroll = ({
   }, []);
 
   const scaleDimensions = () => {
-    return isMobile ? [0.7, 0.9] : [1.05, 1];
+    return isMobile ? [0.5, 0.6] : [0.7, 0.7];
   };
 
   const rotate = useTransform(scrollYProgress, [0, 1], [20, 0]);
-  const scale = useTransform(scrollYProgress, [0, 1], scaleDimensions());
-  const translate = useTransform(scrollYProgress, [0, 1], [0, -100]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.7]);
+  const translate = useTransform(scrollYProgress, [0, 1], [0, -50]);
 
   return (
     <div
-      className="h-[80rem] md:h-[100rem] flex items-center justify-center relative p-2 md:p-20"
+      className="h-[60rem] md:h-[80rem] flex items-center justify-center relative p-2 md:p-20"
       ref={containerRef}
     >
       <div
-        className="py-10 md:py-40 w-full relative"
+        className="py-10 md:py-20 w-full relative"
         style={{
           perspective: "1000px",
         }}
       >
-        <Header translate={translate} titleComponent={titleComponent} />
+        <Header translate={translate} titleComponent={titleComponent} scale={scale} />
         <Card rotate={rotate} translate={translate} scale={scale}>
           {children}
         </Card>
@@ -54,11 +54,13 @@ export const ContainerScroll = ({
   );
 };
 
-export const Header = ({ translate, titleComponent }: any) => {
+export const Header = ({ translate, titleComponent, scale }: any) => {
   return (
     <motion.div
       style={{
         translateY: translate,
+        scale,
+        marginBottom: "-2rem"
       }}
       className="div max-w-7xl mx-auto text-center"
     >
@@ -85,7 +87,7 @@ export const Card = ({
         boxShadow:
           "0 0 #0000004d, 0 9px 20px #0000004a, 0 37px 37px #00000042, 0 84px 50px #00000026, 0 149px 60px #0000000a, 0 233px 65px #00000003",
       }}
-      className="max-w-[90rem] -mt-12 mx-auto h-[40rem] md:h-[50rem] w-full border-8 border-[#222222] rounded-[30px] shadow-2xl"
+      className="max-w-[70rem] mx-auto h-[30rem] md:h-[40rem] w-full border-8 border-[#222222] rounded-[30px] shadow-2xl"
     >
       <div className="h-full w-full overflow-hidden rounded-[22px] bg-gray-100 dark:bg-zinc-900">
         {children}
