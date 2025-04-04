@@ -1,0 +1,17 @@
+{
+  "name": "Chandler Real Estate Group",
+  "short_name": "CRG Realty",
+  "description": "Luxury real estate in College Station",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0f172a",
+  "icons": [
+    {
+      "src": "/logo.svg",
+      "sizes": "48x48 72x72 96x96 128x128 256x256",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+} 
