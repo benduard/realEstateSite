@@ -1,6 +1,5 @@
 import { cn } from "@/lib/utils"
 import { Star } from "lucide-react"
-import Image from "next/image"
 
 interface TestimonialAuthor {
   name: string
@@ -45,11 +44,10 @@ function TestimonialCard({
       <div className="mt-6 flex items-center gap-4">
         {author.image && (
           <div className="relative h-12 w-12 overflow-hidden rounded-full">
-            <Image
+            <img
               src={author.image}
               alt={author.name}
-              fill
-              className="object-cover"
+              className="absolute h-full w-full object-cover"
             />
           </div>
         )}
@@ -85,7 +83,7 @@ export function TestimonialsWithMarquee({
       "py-12 sm:py-24 md:py-32 px-0",
       className
     )}>
-      <div className="mx-auto flex max-w-container flex-col items-center gap-4 text-center sm:gap-16">
+      <div className="mx-auto max-w-7xl flex flex-col items-center gap-4 text-center sm:gap-16">
         <div className="flex flex-col items-center gap-4 px-4 sm:gap-8">
           <h2 className="max-w-[720px] text-3xl font-semibold leading-tight sm:text-5xl sm:leading-tight">
             {title}
@@ -102,12 +100,14 @@ export function TestimonialsWithMarquee({
               style={{ "--duration": "40s" } as React.CSSProperties}
             >
               {[...Array(2)].map((_, setIndex) => (
-                testimonials.map((testimonial, i) => (
-                  <TestimonialCard 
-                    key={`${setIndex}-${i}`}
-                    {...testimonial}
-                  />
-                ))
+                <div key={setIndex} className="flex gap-4">
+                  {testimonials.map((testimonial, i) => (
+                    <TestimonialCard 
+                      key={i}
+                      {...testimonial}
+                    />
+                  ))}
+                </div>
               ))}
             </div>
           </div>

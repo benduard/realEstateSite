@@ -11,6 +11,7 @@ import MarketInsights from './components/MarketInsights';
 import ContactForm from './components/ContactForm';
 import Navigation from './components/Navigation';
 import ExploreProperties from './pages/ExploreProperties';
+import { TestimonialsWithMarquee } from "./components/ui/testimonials-with-marquee"
 
 function HomePage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -41,6 +42,73 @@ function HomePage() {
       </motion.section>
     );
   };
+
+  const testimonials = [
+    {
+      author: {
+        name: "Sarah Johnson",
+        role: "First-time Homebuyer",
+        image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop",
+      },
+      text: "Michael helped us find our dream home in just two weeks! His expertise and dedication made the entire process smooth and stress-free.",
+    },
+    {
+      author: {
+        name: "David Chen",
+        role: "Property Investor",
+        image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop",
+      },
+      text: "As an investor, I appreciate Michael's market knowledge and negotiation skills. He consistently delivers excellent results.",
+    },
+    {
+      author: {
+        name: "Emily Rodriguez",
+        role: "Home Seller",
+        image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop",
+      },
+      text: "Michael sold our house above asking price in just 5 days! His marketing strategy and professional approach were outstanding.",
+    },
+    {
+      author: {
+        name: "James Wilson",
+        role: "Luxury Home Buyer",
+        image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop",
+      },
+      text: "Working with Michael on our luxury home purchase was a pleasure. His attention to detail and client service is unmatched.",
+    },
+    {
+      author: {
+        name: "Lisa Thompson",
+        role: "Relocation Client",
+        image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&h=150&fit=crop",
+      },
+      text: "Moving from another state was challenging, but Michael made it easy. He understood our needs and found the perfect neighborhood.",
+    },
+    {
+      author: {
+        name: "Robert Martinez",
+        role: "Commercial Property Owner",
+        image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop",
+      },
+      text: "Michael's expertise in commercial real estate helped us make a profitable investment. His market analysis was spot-on.",
+    },
+    {
+      author: {
+        name: "Jennifer Lee",
+        role: "Rental Property Owner",
+        image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop",
+      },
+      text: "Finding reliable tenants has never been easier. Michael's screening process and property management advice are invaluable.",
+    },
+    {
+      author: {
+        name: "Thomas Anderson",
+        role: "Retirement Home Buyer",
+        image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop",
+      },
+      text: "Michael helped us find the perfect retirement home. His patience and understanding of our specific needs were exceptional.",
+    },
+  ]
 
   return (
     <div className="min-h-screen bg-white">
@@ -119,7 +187,11 @@ function HomePage() {
           <AboutRealtor />
         </SectionWrapper>
         <SectionWrapper id="testimonials">
-          <Testimonials />
+          <TestimonialsWithMarquee
+            title="What Our Clients Say"
+            description="Don't just take our word for it - hear from some of our satisfied clients who have found their perfect property with us."
+            testimonials={testimonials}
+          />
         </SectionWrapper>
         <SectionWrapper id="market-insights">
           <MarketInsights />
