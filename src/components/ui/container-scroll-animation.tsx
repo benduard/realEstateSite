@@ -14,33 +14,37 @@ export const ContainerScroll = ({
     target: containerRef,
   });
   const [isMobile, setIsMobile] = React.useState(false);
+  const [isTablet, setIsTablet] = React.useState(false);
 
   React.useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
+    const checkDeviceSize = () => {
+      setIsMobile(window.innerWidth <= 640);
+      setIsTablet(window.innerWidth > 640 && window.innerWidth <= 1024);
     };
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
+    checkDeviceSize();
+    window.addEventListener("resize", checkDeviceSize);
     return () => {
-      window.removeEventListener("resize", checkMobile);
+      window.removeEventListener("resize", checkDeviceSize);
     };
   }, []);
 
   const scaleDimensions = () => {
-    return isMobile ? [0.5, 0.6] : [0.7, 0.7];
+    if (isMobile) return [0.6, 0.6];
+    if (isTablet) return [0.65, 0.65];
+    return [0.7, 0.7];
   };
 
-  const rotate = useTransform(scrollYProgress, [0, 1], [20, 0]);
+  const rotate = useTransform(scrollYProgress, [0, 1], [15, 0]);
   const scale = useTransform(scrollYProgress, [0, 1], [1, 0.7]);
   const translate = useTransform(scrollYProgress, [0, 1], [0, -50]);
 
   return (
     <div
-      className="h-[60rem] md:h-[80rem] flex items-center justify-center relative p-2 md:p-20"
+      className="min-h-[60rem] md:min-h-[70rem] lg:min-h-[80rem] flex items-center justify-center relative p-2 sm:p-4 md:p-10 lg:p-20"
       ref={containerRef}
     >
       <div
-        className="py-10 md:py-20 w-full relative"
+        className="py-5 sm:py-10 md:py-20 w-full relative"
         style={{
           perspective: "1000px",
         }}
@@ -60,9 +64,8 @@ export const Header = ({ translate, titleComponent, scale }: any) => {
       style={{
         translateY: translate,
         scale,
-        marginBottom: "-2rem"
       }}
-      className="div max-w-7xl mx-auto text-center"
+      className="div max-w-7xl mx-auto text-center mb-4 sm:mb-8 px-4"
     >
       {titleComponent}
     </motion.div>
@@ -72,6 +75,7 @@ export const Header = ({ translate, titleComponent, scale }: any) => {
 export const Card = ({
   rotate,
   scale,
+  translate,
   children,
 }: {
   rotate: MotionValue<number>;
@@ -87,9 +91,9 @@ export const Card = ({
         boxShadow:
           "0 0 #0000004d, 0 9px 20px #0000004a, 0 37px 37px #00000042, 0 84px 50px #00000026, 0 149px 60px #0000000a, 0 233px 65px #00000003",
       }}
-      className="max-w-[70rem] mx-auto h-[30rem] md:h-[40rem] w-full border-8 border-[#222222] rounded-[30px] shadow-2xl"
+      className="max-w-[70rem] mx-auto w-full aspect-[16/9] sm:aspect-[16/10] md:aspect-[16/9] border-4 sm:border-8 border-[#222222] rounded-[20px] sm:rounded-[30px] shadow-2xl"
     >
-      <div className="h-full w-full overflow-hidden rounded-[22px] bg-gray-100 dark:bg-zinc-900">
+      <div className="h-full w-full overflow-hidden rounded-[16px] sm:rounded-[22px] bg-gray-100 dark:bg-zinc-900">
         {children}
       </div>
     </motion.div>
