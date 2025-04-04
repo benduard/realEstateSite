@@ -3,8 +3,4 @@
   publish = "dist"
 
 [build.environment]
-  NODE_VERSION = "18"
-
-# Disable the NextJS plugin
-[plugins]
-  package = [] 
+  NODE_VERSION = "18" 
