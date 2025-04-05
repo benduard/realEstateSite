@@ -34,22 +34,23 @@ export const ContainerScroll = ({
     return [0.7, 0.7];
   };
 
-  const rotate = useTransform(scrollYProgress, [0, 1], [25, 0]);
-  const scale = useTransform(scrollYProgress, [0, 1], [1.2, 1]);
-  const translate = useTransform(scrollYProgress, [0, 1], [-2, -5]);
+  const rotate = useTransform(scrollYProgress, [0, 1], [15, 0]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1.15, 1]);
+  const translate = useTransform(scrollYProgress, [0, 1], [0, -2]);
 
   return (
     <div
-      className="min-h-[80rem] md:min-h-[90rem] lg:min-h-[100rem] flex items-center justify-center relative p-2 sm:p-4 md:p-10 lg:p-20"
+      className="min-h-[80vh] flex items-center justify-center relative p-2 sm:p-4 md:p-10 lg:p-20"
       ref={containerRef}
       style={{ position: 'relative' }}
     >
       <div
         className="py-5 sm:py-10 md:py-20 w-full relative"
         style={{
-          perspective: "3000px",
+          perspective: "1500px",
           transformStyle: "preserve-3d",
           position: 'relative',
+          backfaceVisibility: "hidden",
         }}
       >
         <Header translate={translate} titleComponent={titleComponent} scale={scale} />
@@ -92,15 +93,17 @@ export const Card = ({
         rotateX: rotate,
         scale,
         transformStyle: "preserve-3d",
+        backfaceVisibility: "hidden",
         boxShadow:
           "0 0 #0000004d, 0 9px 20px #0000004a, 0 37px 37px #00000042, 0 84px 50px #00000026, 0 149px 60px #0000000a, 0 233px 65px #00000003",
       }}
-      className="max-w-[75rem] mx-auto w-full aspect-[16/9] sm:aspect-[16/10] md:aspect-[16/9] border-4 sm:border-8 border-[#222222] rounded-[20px] sm:rounded-[30px] shadow-2xl"
+      className="w-[90vw] max-w-[1200px] mx-auto aspect-[16/9] border-4 sm:border-8 border-[#222222] rounded-[20px] sm:rounded-[30px] shadow-2xl"
     >
       <motion.div 
         className="h-full w-full overflow-hidden rounded-[16px] sm:rounded-[22px] bg-gray-100 dark:bg-zinc-900"
         style={{
           transformStyle: "preserve-3d",
+          backfaceVisibility: "hidden",
         }}
       >
         {children}
