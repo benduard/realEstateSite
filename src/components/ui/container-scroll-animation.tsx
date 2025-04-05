@@ -12,6 +12,7 @@ export const ContainerScroll = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
+    offset: [0.1, 0.3]
   });
   const [isMobile, setIsMobile] = React.useState(false);
   const [isTablet, setIsTablet] = React.useState(false);
@@ -34,13 +35,13 @@ export const ContainerScroll = ({
     return [0.7, 0.7];
   };
 
-  const rotate = useTransform(scrollYProgress, [0, 1], [15, 0]);
-  const scale = useTransform(scrollYProgress, [0, 1], [1.15, 1]);
-  const translate = useTransform(scrollYProgress, [0, 1], [0, -2]);
+  const rotate = useTransform(scrollYProgress, [-0.3, 0.15], [15, 0], { clamp: true });
+  const scale = useTransform(scrollYProgress, [-0.3, 0.15], [1.5, 1], { clamp: true });
+  const translate = useTransform(scrollYProgress, [-0.5, 0.15], [-1, -2], { clamp: true });
 
   return (
     <div
-      className="min-h-[90vh] flex items-center justify-center relative p-2 sm:p-4 md:p-10 lg:p-20"
+      className="min-h-[100vh] flex items-center justify-center relative p-2 sm:p-4 md:p-10 lg:p-20 pt-[20vh] sm:pt-[25vh] md:pt-[30vh]"
       ref={containerRef}
       style={{ position: 'relative' }}
     >
@@ -69,7 +70,7 @@ export const Header = ({ translate, titleComponent, scale }: any) => {
         translateY: translate,
         scale,
       }}
-      className="div max-w-[85vw] sm:max-w-[80vw] md:max-w-[75vw] mx-auto text-center mb-8 sm:mb-12 px-4"
+      className="div max-w-[90vw] sm:max-w-[85vw] md:max-w-[80vw] mx-auto text-center mb-6 sm:mb-8 px-4"
     >
       <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-black dark:text-white max-w-full">
         {titleComponent}
@@ -99,10 +100,10 @@ export const Card = ({
         boxShadow:
           "0 0 #0000004d, 0 9px 20px #0000004a, 0 37px 37px #00000042, 0 84px 50px #00000026, 0 149px 60px #0000000a, 0 233px 65px #00000003",
       }}
-      className="w-[85vw] sm:w-[80vw] md:w-[75vw] max-w-[1000px] mx-auto aspect-[16/9] border-4 sm:border-8 border-[#222222] rounded-[20px] sm:rounded-[30px] shadow-2xl"
+      className="w-[90vw] sm:w-[85vw] md:w-[80vw] max-w-[1200px] mx-auto aspect-[16/9] border-4 sm:border-8 border-[#222222] rounded-[20px] sm:rounded-[30px] shadow-2xl"
     >
       <motion.div 
-        className="h-full w-full overflow-hidden rounded-[16px] sm:rounded-[22px] bg-gray-100 dark:bg-zinc-900"
+        className="h-full w-full rounded-[16px] sm:rounded-[22px] bg-gray-100 dark:bg-zinc-900"
         style={{
           transformStyle: "preserve-3d",
           backfaceVisibility: "hidden",
