@@ -40,7 +40,7 @@ export const ContainerScroll = ({
 
   return (
     <div
-      className="min-h-[80vh] flex items-center justify-center relative p-2 sm:p-4 md:p-10 lg:p-20"
+      className="min-h-[90vh] flex items-center justify-center relative p-2 sm:p-4 md:p-10 lg:p-20"
       ref={containerRef}
       style={{ position: 'relative' }}
     >
@@ -69,9 +69,11 @@ export const Header = ({ translate, titleComponent, scale }: any) => {
         translateY: translate,
         scale,
       }}
-      className="div max-w-7xl mx-auto text-center mb-16 sm:mb-20 px-4"
+      className="div max-w-[85vw] sm:max-w-[80vw] md:max-w-[75vw] mx-auto text-center mb-8 sm:mb-12 px-4"
     >
-      {titleComponent}
+      <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-black dark:text-white max-w-full">
+        {titleComponent}
+      </h1>
     </motion.div>
   );
 };
@@ -97,7 +99,7 @@ export const Card = ({
         boxShadow:
           "0 0 #0000004d, 0 9px 20px #0000004a, 0 37px 37px #00000042, 0 84px 50px #00000026, 0 149px 60px #0000000a, 0 233px 65px #00000003",
       }}
-      className="w-[90vw] max-w-[1200px] mx-auto aspect-[16/9] border-4 sm:border-8 border-[#222222] rounded-[20px] sm:rounded-[30px] shadow-2xl"
+      className="w-[85vw] sm:w-[80vw] md:w-[75vw] max-w-[1000px] mx-auto aspect-[16/9] border-4 sm:border-8 border-[#222222] rounded-[20px] sm:rounded-[30px] shadow-2xl"
     >
       <motion.div 
         className="h-full w-full overflow-hidden rounded-[16px] sm:rounded-[22px] bg-gray-100 dark:bg-zinc-900"
