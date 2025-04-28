@@ -8,7 +8,7 @@ const FeaturedListings = () => {
     {
       id: 1,
       title: 'Luxury Estate in Pebble Creek',
-      price: '$2,500,000',
+      price: '$1,500,000',
       image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80',
       location: 'College Station, TX',
       beds: 5,
@@ -18,7 +18,7 @@ const FeaturedListings = () => {
     {
       id: 2,
       title: 'Modern Villa in South College Station',
-      price: '$1,800,000',
+      price: '$800,000',
       image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=fit=crop&q=80',
       location: 'College Station, TX',
       beds: 4,
@@ -28,7 +28,7 @@ const FeaturedListings = () => {
     {
       id: 3,
       title: 'Contemporary Estate near Texas A&M',
-      price: '$2,200,000',
+      price: '$1,200,000',
       image: 'https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=fit=crop&q=80',
       location: 'College Station, TX',
       beds: 6,

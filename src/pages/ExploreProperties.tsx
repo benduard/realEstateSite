@@ -48,7 +48,7 @@ const ExploreProperties: React.FC = () => {
     {
       id: 1,
       title: "Luxury Estate in Pebble Creek",
-      price: "$2,500,000",
+      price: "$1,500,000",
       location: "College Station, TX",
       beds: 5,
       baths: 4.5,
@@ -59,7 +59,7 @@ const ExploreProperties: React.FC = () => {
     {
       id: 2,
       title: "Modern Villa in South College Station",
-      price: "$1,800,000",
+      price: "$800,000",
       location: "College Station, TX",
       beds: 4,
       baths: 3.5,
@@ -70,7 +70,7 @@ const ExploreProperties: React.FC = () => {
     {
       id: 3,
       title: "Contemporary Estate near Texas A&M",
-      price: "$2,200,000",
+      price: "$1,200,000",
       location: "College Station, TX",
       beds: 6,
       baths: 5,
@@ -81,7 +81,7 @@ const ExploreProperties: React.FC = () => {
     {
       id: 4,
       title: "Waterfront Estate on Lake Bryan",
-      price: "$3,200,000",
+      price: "$2,200,000",
       location: "College Station, TX",
       beds: 5,
       baths: 4,
@@ -92,7 +92,7 @@ const ExploreProperties: React.FC = () => {
     {
       id: 5,
       title: "Historic Victorian in Downtown Bryan",
-      price: "$1,950,000",
+      price: "$950,000",
       location: "College Station, TX",
       beds: 4,
       baths: 3,
@@ -103,7 +103,7 @@ const ExploreProperties: React.FC = () => {
     {
       id: 6,
       title: "Modern Farmhouse in Indian Lakes",
-      price: "$2,100,000",
+      price: "$1,100,000",
       location: "College Station, TX",
       beds: 4,
       baths: 3,
@@ -114,7 +114,7 @@ const ExploreProperties: React.FC = () => {
     {
       id: 7,
       title: "Luxury Penthouse in Northgate",
-      price: "$1,650,000",
+      price: "$650,000",
       location: "College Station, TX",
       beds: 3,
       baths: 2,
@@ -125,7 +125,7 @@ const ExploreProperties: React.FC = () => {
     {
       id: 8,
       title: "Golf Course Estate in Traditions",
-      price: "$2,800,000",
+      price: "$1,800,000",
       location: "College Station, TX",
       beds: 5,
       baths: 4,
@@ -136,7 +136,7 @@ const ExploreProperties: React.FC = () => {
     {
       id: 10,
       title: "Modern Townhouse in Wolf Pen Creek",
-      price: "$1,450,000",
+      price: "$450,000",
       location: "College Station, TX",
       beds: 3,
       baths: 2,
