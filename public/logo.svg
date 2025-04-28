@@ -1,1 +1,5 @@
- 
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="256" height="256" rx="48" fill="#0F172A"/>
+  <text x="128" y="176" font-family="Arial, sans-serif" font-size="128" font-weight="bold" fill="white" text-anchor="middle">CRG</text>
+</svg> 
