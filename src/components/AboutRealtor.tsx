@@ -19,7 +19,7 @@ const AboutRealtor = () => {
         }
       >
         <motion.div 
-          className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center h-full p-6"
+          className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center h-full p-4"
           style={{
             scale: 1.05,
             transformOrigin: "center center"
