@@ -66,9 +66,14 @@ export default {
           '0%': { transform: 'translateX(0)' },
           '100%': { transform: 'translateX(calc(-50% - 1rem))' },
         },
+        'wave-pulse': {
+          '0%, 100%': { opacity: 0.4 },
+          '50%': { opacity: 0.7 },
+        },
       },
       animation: {
         marquee: 'marquee var(--duration) linear infinite',
+        'wave-pulse': 'wave-pulse 4s ease-in-out infinite',
       },
     },
   },

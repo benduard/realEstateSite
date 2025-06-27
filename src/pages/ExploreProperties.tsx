@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Search, SlidersHorizontal, MapPin, BedDouble, Bath, Square, DollarSign, Home, Building2, Building } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { Waves } from '../components/ui/waves-background';
 
 interface Property {
   id: number;
@@ -168,7 +169,23 @@ const ExploreProperties: React.FC = () => {
   });
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white relative">
+      {/* Waves Background */}
+      <Waves 
+        lineColor="rgba(148, 163, 184, 0.15)"
+        backgroundColor="transparent"
+        waveSpeedX={0.008}
+        waveSpeedY={0.006}
+        waveAmpX={20}
+        waveAmpY={10}
+        friction={0.96}
+        tension={0.002}
+        maxCursorMove={60}
+        xGap={18}
+        yGap={45}
+        className="fixed inset-0 z-0"
+      />
+
       {/* Header */}
       <nav className="fixed w-full bg-white/95 backdrop-blur-sm z-50 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -192,7 +209,7 @@ const ExploreProperties: React.FC = () => {
       }}>
         <div className="absolute inset-0 bg-black/50"></div>
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
             <div className="text-center mb-6">
               <h1 className="text-4xl md:text-6xl font-bold mb-3 text-white">Find Your Dream Home</h1>
               <p className="text-xl text-slate-200">Search through our extensive collection of properties</p>
@@ -227,7 +244,7 @@ const ExploreProperties: React.FC = () => {
         <motion.div 
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-white shadow-md border-b border-slate-200"
+          className="bg-white shadow-md border-b border-slate-200 relative z-40"
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -314,7 +331,7 @@ const ExploreProperties: React.FC = () => {
       )}
 
       {/* Properties Grid */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredProperties.map((property) => (
             <motion.div
@@ -364,4 +381,4 @@ const ExploreProperties: React.FC = () => {
   );
 };
 
-export default ExploreProperties; 
+export default ExploreProperties;

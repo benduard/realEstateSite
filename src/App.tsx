@@ -12,6 +12,7 @@ import ContactForm from './components/ContactForm';
 import Navigation from './components/Navigation';
 import ExploreProperties from './pages/ExploreProperties';
 import { TestimonialsWithMarquee } from "./components/ui/testimonials-with-marquee"
+import { Waves } from './components/ui/waves-background';
 
 function HomePage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -36,7 +37,7 @@ function HomePage() {
         animate={inView ? "visible" : "hidden"}
         variants={fadeInUp}
         transition={{ duration: 0.6 }}
-        className="py-4"
+        className="py-4 relative"
       >
         {children}
       </motion.section>
@@ -119,7 +120,23 @@ function HomePage() {
   ]
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white relative">
+      {/* Global Waves Background */}
+      <Waves 
+        lineColor="rgba(148, 163, 184, 0.2)"
+        backgroundColor="transparent"
+        waveSpeedX={0.01}
+        waveSpeedY={0.008}
+        waveAmpX={25}
+        waveAmpY={12}
+        friction={0.95}
+        tension={0.003}
+        maxCursorMove={80}
+        xGap={15}
+        yGap={40}
+        className="fixed inset-0 z-0"
+      />
+
       {/* Navigation */}
       <nav className="fixed w-full bg-white/95 backdrop-blur-sm z-50 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -173,7 +190,7 @@ function HomePage() {
       >
         <div className="absolute inset-0 bg-black/50"></div>
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-center text-white px-4">
+          <div className="text-center text-white px-4 relative z-10">
             <h1 className="text-4xl md:text-6xl font-bold mb-4">Luxury Living in College Station</h1>
             <p className="text-xl md:text-2xl mb-8">Discover Your Dream Home in Aggieland</p>
             <button 
@@ -187,7 +204,7 @@ function HomePage() {
       </motion.div>
 
       {/* Main Content */}
-      <main>
+      <main className="relative z-10">
         <SectionWrapper id="properties">
           <FeaturedListings />
         </SectionWrapper>
@@ -210,7 +227,7 @@ function HomePage() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-slate-900 text-white py-12">
+      <footer className="bg-slate-900 text-white py-12 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
