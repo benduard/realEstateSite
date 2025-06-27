@@ -1,39 +1,31 @@
 import React from 'react';
 import { Award, Users, Home } from 'lucide-react';
-import { ContainerScroll } from './ui/container-scroll-animation';
-import { motion } from 'framer-motion';
 
 const AboutRealtor = () => {
   return (
-    <div className="flex flex-col overflow-hidden">
-      <ContainerScroll
-        titleComponent={
-          <>
-            <h1 className="text-4xl font-semibold text-black dark:text-white">
-              Meet <br />
-              <span className="text-4xl md:text-[6rem] font-bold mt-1 leading-none">
-                Michael Chandler
-              </span>
-            </h1>
-          </>
-        }
-      >
-        <motion.div 
-          className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center h-full p-4"
-          style={{
-            scale: 1.05,
-            transformOrigin: "center center"
-          }}
-        >
-          <div className="h-full flex items-center justify-center">
+    <section className="py-20 bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Title Section */}
+        <div className="text-center mb-16">
+          <h1 className="text-4xl md:text-6xl font-bold text-slate-900 mb-4">
+            Meet <br />
+            <span className="text-slate-600">Michael Chandler</span>
+          </h1>
+        </div>
+
+        {/* Content Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          {/* Image Section */}
+          <div className="order-2 lg:order-1">
             <img
               src="https://images.pexels.com/photos/3760263/pexels-photo-3760263.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
               alt="Michael Chandler"
-              className="rounded-lg shadow-xl w-full h-full object-cover"
+              className="rounded-lg shadow-xl w-full h-auto object-cover"
             />
           </div>
           
-          <div className="space-y-6 flex flex-col justify-center h-full">
+          {/* Content Section */}
+          <div className="order-1 lg:order-2 space-y-8">
             <p className="text-slate-600 text-lg leading-relaxed">
               A dynamic and forward-thinking realtor, Michael Chandler brings a fresh perspective to luxury real estate in College Station. With his modern approach and deep understanding of the local market, Michael has quickly established himself as a trusted advisor for both first-time homebuyers and seasoned investors.
             </p>
@@ -80,9 +72,9 @@ const AboutRealtor = () => {
               </ul>
             </div>
           </div>
-        </motion.div>
-      </ContainerScroll>
-    </div>
+        </div>
+      </div>
+    </section>
   );
 };
 
