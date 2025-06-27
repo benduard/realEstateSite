@@ -1,64 +1,5 @@
 import { cn } from "../../lib/utils"
-import { Star } from "lucide-react"
-
-interface TestimonialAuthor {
-  name: string
-  role: string
-  image?: string
-}
-
-interface TestimonialCardProps {
-  author: TestimonialAuthor
-  text: string
-  href?: string
-  className?: string
-}
-
-function TestimonialCard({
-  author,
-  text,
-  href,
-  className,
-}: TestimonialCardProps) {
-  return (
-    <div
-      className={cn(
-        "group relative flex w-[350px] shrink-0 flex-col justify-between rounded-2xl bg-muted/50 p-6 shadow-sm transition-all hover:bg-muted/80",
-        className
-      )}
-    >
-      <div className="flex flex-col gap-4">
-        <div className="flex gap-1">
-          {[...Array(5)].map((_, i) => (
-            <Star
-              key={i}
-              className="h-4 w-4 fill-yellow-400 text-yellow-400"
-            />
-          ))}
-        </div>
-        <p className="text-sm leading-relaxed text-muted-foreground">
-          "{text}"
-        </p>
-      </div>
-
-      <div className="mt-6 flex items-center gap-4">
-        {author.image && (
-          <div className="relative h-12 w-12 overflow-hidden rounded-full">
-            <img
-              src={author.image}
-              alt={author.name}
-              className="absolute h-full w-full object-cover"
-            />
-          </div>
-        )}
-        <div className="flex flex-col">
-          <span className="font-medium">{author.name}</span>
-          <span className="text-sm text-muted-foreground">{author.role}</span>
-        </div>
-      </div>
-    </div>
-  )
-}
+import { TestimonialCard, TestimonialAuthor } from "./testimonial-card"
 
 interface TestimonialsSectionProps {
   title: string
@@ -83,7 +24,7 @@ export function TestimonialsWithMarquee({
       "py-12 sm:py-24 md:py-32 px-0",
       className
     )}>
-      <div className="mx-auto max-w-7xl flex flex-col items-center gap-4 text-center sm:gap-16">
+      <div className="mx-auto flex max-w-container flex-col items-center gap-4 text-center sm:gap-16">
         <div className="flex flex-col items-center gap-4 px-4 sm:gap-8">
           <h2 className="max-w-[720px] text-3xl font-semibold leading-tight sm:text-5xl sm:leading-tight">
             {title}
@@ -93,29 +34,24 @@ export function TestimonialsWithMarquee({
           </p>
         </div>
 
-        <div className="relative w-full overflow-hidden">
-          <div className="relative flex w-full overflow-hidden">
-            <div 
-              className="flex animate-marquee gap-4 py-4" 
-              style={{ "--duration": "40s" } as React.CSSProperties}
-            >
+        <div className="relative flex w-full flex-col items-center justify-center overflow-hidden">
+          <div className="group flex overflow-hidden p-2 [--gap:1rem] [gap:var(--gap)] flex-row [--duration:60s]">
+            <div className="flex shrink-0 justify-around [gap:var(--gap)] animate-marquee flex-row group-hover:[animation-play-state:paused]">
               {[...Array(2)].map((_, setIndex) => (
-                <div key={setIndex} className="flex gap-4">
-                  {testimonials.map((testimonial, i) => (
-                    <TestimonialCard 
-                      key={i}
-                      {...testimonial}
-                    />
-                  ))}
-                </div>
+                testimonials.map((testimonial, i) => (
+                  <TestimonialCard 
+                    key={`${setIndex}-${i}`}
+                    {...testimonial}
+                  />
+                ))
               ))}
             </div>
           </div>
 
-          <div className="pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-background to-transparent" />
-          <div className="pointer-events-none absolute inset-y-0 right-0 w-1/3 bg-gradient-to-l from-background to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 left-0 hidden w-1/3 bg-gradient-to-r from-background sm:block" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-1/3 bg-gradient-to-l from-background sm:block" />
         </div>
       </div>
     </section>
   )
-} 
+}

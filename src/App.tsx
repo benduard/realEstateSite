@@ -47,66 +47,74 @@ function HomePage() {
     {
       author: {
         name: "Sarah Johnson",
-        role: "First-time Homebuyer",
-        image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop",
+        handle: "@sarahj",
+        avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop&crop=face",
       },
-      text: "Michael helped us find our dream home in just two weeks! His expertise and dedication made the entire process smooth and stress-free.",
+      text: "Michael helped us find our dream home in College Station. His knowledge of the local market and attention to detail made the entire process smooth and enjoyable.",
+      href: "https://twitter.com/sarahj"
     },
     {
       author: {
         name: "David Chen",
-        role: "Property Investor",
-        image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop",
+        handle: "@davidchen",
+        avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
       },
-      text: "As an investor, I appreciate Michael's market knowledge and negotiation skills. He consistently delivers excellent results.",
+      text: "As a first-time homebuyer, I was nervous about the process. Michael's expertise and patience made me feel confident throughout the entire journey.",
+      href: "https://twitter.com/davidchen"
     },
     {
       author: {
         name: "Emily Rodriguez",
-        role: "Home Seller",
-        image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop",
+        handle: "@emilyr",
+        avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face",
       },
-      text: "Michael sold our house above asking price in just 5 days! His marketing strategy and professional approach were outstanding.",
+      text: "Michael's dedication to finding the perfect property for his clients is unmatched. He went above and beyond to ensure we found exactly what we were looking for.",
+      href: "https://twitter.com/emilyr"
     },
     {
       author: {
         name: "James Wilson",
-        role: "Luxury Home Buyer",
-        image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop",
+        handle: "@jamesw",
+        avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
       },
-      text: "Working with Michael on our luxury home purchase was a pleasure. His attention to detail and client service is unmatched.",
+      text: "The market insights and property recommendations Michael provided were invaluable. He truly understands the College Station real estate market.",
+      href: "https://twitter.com/jamesw"
     },
     {
       author: {
         name: "Lisa Thompson",
-        role: "Relocation Client",
-        image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&h=150&fit=crop",
+        handle: "@lisat",
+        avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face",
       },
-      text: "Moving from another state was challenging, but Michael made it easy. He understood our needs and found the perfect neighborhood.",
+      text: "Michael's negotiation skills helped us get the best deal possible. His professionalism and expertise are truly impressive.",
+      href: "https://twitter.com/lisat"
     },
     {
       author: {
         name: "Robert Martinez",
-        role: "Commercial Property Owner",
-        image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop",
+        handle: "@robertm",
+        avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face",
       },
-      text: "Michael's expertise in commercial real estate helped us make a profitable investment. His market analysis was spot-on.",
+      text: "From start to finish, Michael provided exceptional service. His knowledge of the local area and market trends is outstanding.",
+      href: "https://twitter.com/robertm"
     },
     {
       author: {
-        name: "Jennifer Lee",
-        role: "Rental Property Owner",
-        image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop",
+        name: "Jennifer Kim",
+        handle: "@jenniferk",
+        avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&h=150&fit=crop&crop=face",
       },
-      text: "Finding reliable tenants has never been easier. Michael's screening process and property management advice are invaluable.",
+      text: "Michael's attention to detail and commitment to client satisfaction is remarkable. He made our home buying experience truly memorable.",
+      href: "https://twitter.com/jenniferk"
     },
     {
       author: {
         name: "Thomas Anderson",
-        role: "Retirement Home Buyer",
-        image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop",
+        handle: "@thomasa",
+        avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&h=150&fit=crop&crop=face",
       },
-      text: "Michael helped us find the perfect retirement home. His patience and understanding of our specific needs were exceptional.",
+      text: "Working with Michael was a pleasure. His expertise in the College Station market and dedication to his clients is exceptional.",
+      href: "https://twitter.com/thomasa"
     },
   ]
 
