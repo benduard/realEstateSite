@@ -25,7 +25,7 @@ body {
 
 @layer utilities {
   .animate-marquee {
-    animation: marquee var(--duration, 40s) linear infinite;
+    animation: marquee var(--duration, 80s) linear infinite;
     will-change: transform;
   }
 }
@@ -39,7 +39,7 @@ body {
   }
 }
 
-/* Remove hover pause - animation will be continuous */
+/* Ensure animation is always running and never pauses */
 .animate-marquee {
   animation-play-state: running !important;
 }
