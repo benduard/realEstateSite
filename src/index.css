@@ -15,6 +15,10 @@ body {
   overflow-x: hidden;
   /* Improve touch scrolling on iOS */
   -webkit-overflow-scrolling: touch;
+  /* Prevent zoom on input focus on mobile */
+  -webkit-text-size-adjust: 100%;
+  /* Improve touch responsiveness */
+  touch-action: manipulation;
 }
 
 /* Optimize scrolling performance */
@@ -22,8 +26,6 @@ body {
   /* Use hardware acceleration for better performance */
   -webkit-transform: translateZ(0);
   transform: translateZ(0);
-  /* Improve scrolling on mobile */
-  -webkit-overflow-scrolling: touch;
 }
 
 /* Add a scrollbar style */
@@ -46,6 +48,8 @@ body {
     -webkit-text-size-adjust: 100%;
     /* Improve touch responsiveness */
     touch-action: manipulation;
+    /* Optimize scrolling */
+    -webkit-overflow-scrolling: touch;
   }
   
   /* Optimize canvas performance on mobile */
@@ -57,17 +61,57 @@ body {
     image-rendering: optimizeSpeed;
     image-rendering: -webkit-optimize-contrast;
     image-rendering: optimize-contrast;
+    /* Disable all touch interactions */
+    touch-action: none;
+    pointer-events: none;
   }
 }
 
-/* Prevent touch callouts and selections that can interfere with scrolling */
+/* Ensure waves container doesn't interfere with scrolling */
 .waves-container {
+  /* Disable all user interactions */
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  /* Allow vertical scrolling */
-  touch-action: pan-y;
+  /* Completely disable touch interactions */
+  touch-action: none;
+  pointer-events: none;
+  /* Ensure it's behind content */
+  z-index: -1;
+}
+
+/* Ensure main content can scroll properly */
+main {
+  /* Allow all touch actions for scrolling */
+  touch-action: auto;
+  /* Ensure proper stacking */
+  position: relative;
+  z-index: 1;
+}
+
+/* Navigation should be above everything */
+nav {
+  z-index: 50;
+  position: relative;
+}
+
+/* Footer should be above waves */
+footer {
+  position: relative;
+  z-index: 10;
+}
+
+/* Improve scroll performance on mobile */
+@supports (-webkit-overflow-scrolling: touch) {
+  body {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Prevent any interference with form inputs */
+input, textarea, select, button {
+  touch-action: manipulation;
 }

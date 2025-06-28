@@ -171,7 +171,7 @@ export function Waves({
       const dpr = window.devicePixelRatio || 1
       
       // Use lower resolution on mobile for better performance
-      const scale = isMobileRef.current ? Math.min(dpr, 2) : dpr
+      const scale = isMobileRef.current ? Math.min(dpr, 1.5) : dpr
       
       canvas.width = boundingRef.current.width * scale
       canvas.height = boundingRef.current.height * scale
@@ -188,7 +188,7 @@ export function Waves({
       linesRef.current = []
       
       // Reduce complexity on mobile
-      const mobileMultiplier = isMobileRef.current ? 1.5 : 1
+      const mobileMultiplier = isMobileRef.current ? 1.8 : 1
       const adjustedXGap = xGap * mobileMultiplier
       const adjustedYGap = yGap * mobileMultiplier
       
@@ -219,7 +219,8 @@ export function Waves({
       const noise = noiseRef.current
       
       // Reduce animation complexity on mobile
-      const speedMultiplier = isMobileRef.current ? 0.7 : 1
+      const speedMultiplier = isMobileRef.current ? 0.8 : 1
+      const ampMultiplier = isMobileRef.current ? 0.7 : 1
       
       lines.forEach((pts) => {
         pts.forEach((p: any) => {
@@ -228,10 +229,10 @@ export function Waves({
               (p.x + time * waveSpeedX * speedMultiplier) * 0.002,
               (p.y + time * waveSpeedY * speedMultiplier) * 0.0015,
             ) * 12
-          p.wave.x = Math.cos(move) * waveAmpX
-          p.wave.y = Math.sin(move) * waveAmpY
+          p.wave.x = Math.cos(move) * waveAmpX * ampMultiplier
+          p.wave.y = Math.sin(move) * waveAmpY * ampMultiplier
 
-          // Reduce mouse interaction on mobile for better performance
+          // Only add mouse interaction on desktop
           if (!isMobileRef.current) {
             const dx = p.x - mouse.sx,
               dy = p.y - mouse.sy
@@ -243,23 +244,23 @@ export function Waves({
               p.cursor.vx += Math.cos(mouse.a) * f * l * mouse.vs * 0.00065
               p.cursor.vy += Math.sin(mouse.a) * f * l * mouse.vs * 0.00065
             }
+
+            p.cursor.vx += (0 - p.cursor.x) * tension
+            p.cursor.vy += (0 - p.cursor.y) * tension
+            p.cursor.vx *= friction
+            p.cursor.vy *= friction
+            p.cursor.x += p.cursor.vx * 2
+            p.cursor.y += p.cursor.vy * 2
+
+            p.cursor.x = Math.min(
+              maxCursorMove,
+              Math.max(-maxCursorMove, p.cursor.x),
+            )
+            p.cursor.y = Math.min(
+              maxCursorMove,
+              Math.max(-maxCursorMove, p.cursor.y),
+            )
           }
-
-          p.cursor.vx += (0 - p.cursor.x) * tension
-          p.cursor.vy += (0 - p.cursor.y) * tension
-          p.cursor.vx *= friction
-          p.cursor.vy *= friction
-          p.cursor.x += p.cursor.vx * 2
-          p.cursor.y += p.cursor.vy * 2
-
-          p.cursor.x = Math.min(
-            maxCursorMove,
-            Math.max(-maxCursorMove, p.cursor.x),
-          )
-          p.cursor.y = Math.min(
-            maxCursorMove,
-            Math.max(-maxCursorMove, p.cursor.y),
-          )
         })
       })
     }
@@ -278,7 +279,7 @@ export function Waves({
       ctx.clearRect(0, 0, width, height)
       ctx.beginPath()
       ctx.strokeStyle = lineColor
-      ctx.lineWidth = isMobileRef.current ? 0.8 : 1
+      ctx.lineWidth = isMobileRef.current ? 0.7 : 1
       
       linesRef.current.forEach((points) => {
         let p1 = moved(points[0], false)
@@ -300,56 +301,48 @@ export function Waves({
     function tick(t: number) {
       const mouse = mouseRef.current
 
-      mouse.sx += (mouse.x - mouse.sx) * 0.1
-      mouse.sy += (mouse.y - mouse.sy) * 0.1
+      // Only update mouse tracking on desktop
+      if (!isMobileRef.current) {
+        mouse.sx += (mouse.x - mouse.sx) * 0.1
+        mouse.sy += (mouse.y - mouse.sy) * 0.1
 
-      const dx = mouse.x - mouse.lx,
-        dy = mouse.y - mouse.ly
-      const d = Math.hypot(dx, dy)
-      mouse.v = d
-      mouse.vs += (d - mouse.vs) * 0.1
-      mouse.vs = Math.min(100, mouse.vs)
-      mouse.lx = mouse.x
-      mouse.ly = mouse.y
-      mouse.a = Math.atan2(dy, dx)
+        const dx = mouse.x - mouse.lx,
+          dy = mouse.y - mouse.ly
+        const d = Math.hypot(dx, dy)
+        mouse.v = d
+        mouse.vs += (d - mouse.vs) * 0.1
+        mouse.vs = Math.min(100, mouse.vs)
+        mouse.lx = mouse.x
+        mouse.ly = mouse.y
+        mouse.a = Math.atan2(dy, dx)
+      }
 
       movePoints(t)
       drawLines()
       
-      // Use lower frame rate on mobile
+      // Use lower frame rate on mobile for better performance and battery life
       if (isMobileRef.current) {
         setTimeout(() => {
           animationRef.current = requestAnimationFrame(tick)
-        }, 1000 / 30) // 30fps on mobile
+        }, 1000 / 24) // 24fps on mobile
       } else {
         animationRef.current = requestAnimationFrame(tick)
       }
     }
 
     function onResize() {
-      setSize()
-      setLines()
+      // Debounce resize for better performance
+      clearTimeout(onResize.timeout)
+      onResize.timeout = setTimeout(() => {
+        setSize()
+        setLines()
+      }, 100)
     }
+    onResize.timeout = null
     
     function onMouseMove(e: MouseEvent) {
       if (isMobileRef.current) return // Disable mouse tracking on mobile
       updateMouse(e.clientX, e.clientY)
-    }
-    
-    function onTouchStart(e: TouchEvent) {
-      // Prevent default to avoid scroll issues
-      if (e.touches.length === 1) {
-        e.preventDefault()
-      }
-    }
-    
-    function onTouchMove(e: TouchEvent) {
-      // Only prevent default for single touch to allow scrolling
-      if (e.touches.length === 1) {
-        e.preventDefault()
-        const touch = e.touches[0]
-        updateMouse(touch.clientX, touch.clientY)
-      }
     }
     
     function updateMouse(x: number, y: number) {
@@ -370,25 +363,20 @@ export function Waves({
     setLines()
     animationRef.current = requestAnimationFrame(tick)
     
-    window.addEventListener("resize", onResize)
+    window.addEventListener("resize", onResize, { passive: true })
     
-    // Only add mouse events on non-mobile devices
+    // Only add mouse events on desktop devices
     if (!isMobileRef.current) {
-      window.addEventListener("mousemove", onMouseMove)
+      window.addEventListener("mousemove", onMouseMove, { passive: true })
     }
-    
-    // Add touch events with proper passive handling
-    window.addEventListener("touchstart", onTouchStart, { passive: false })
-    window.addEventListener("touchmove", onTouchMove, { passive: false })
 
     return () => {
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current)
       }
+      clearTimeout(onResize.timeout)
       window.removeEventListener("resize", onResize)
       window.removeEventListener("mousemove", onMouseMove)
-      window.removeEventListener("touchstart", onTouchStart)
-      window.removeEventListener("touchmove", onTouchMove)
     }
   }, [
     lineColor,
@@ -419,7 +407,8 @@ export function Waves({
         ref={canvasRef} 
         className="block w-full h-full"
         style={{
-          touchAction: 'pan-y pinch-zoom', // Allow vertical scrolling and pinch zoom
+          touchAction: 'none', // Completely disable touch interaction with canvas
+          pointerEvents: 'none', // Ensure no pointer events interfere
         }}
       />
     </div>
