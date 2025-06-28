@@ -4,10 +4,26 @@
 
 html {
   scroll-behavior: smooth;
+  /* Improve scrolling on mobile */
+  -webkit-overflow-scrolling: touch;
+  overflow-scrolling: touch;
 }
 
 body {
   @apply antialiased;
+  /* Prevent horizontal scrolling */
+  overflow-x: hidden;
+  /* Improve touch scrolling on iOS */
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Optimize scrolling performance */
+* {
+  /* Use hardware acceleration for better performance */
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  /* Improve scrolling on mobile */
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Add a scrollbar style */
@@ -21,4 +37,37 @@ body {
 
 ::-webkit-scrollbar-thumb {
   @apply bg-slate-300 rounded-full hover:bg-slate-400 transition-colors duration-200;
+}
+
+/* Mobile-specific optimizations */
+@media (max-width: 768px) {
+  body {
+    /* Prevent zoom on input focus */
+    -webkit-text-size-adjust: 100%;
+    /* Improve touch responsiveness */
+    touch-action: manipulation;
+  }
+  
+  /* Optimize canvas performance on mobile */
+  canvas {
+    /* Use GPU acceleration */
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    /* Improve rendering performance */
+    image-rendering: optimizeSpeed;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: optimize-contrast;
+  }
+}
+
+/* Prevent touch callouts and selections that can interfere with scrolling */
+.waves-container {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  /* Allow vertical scrolling */
+  touch-action: pan-y;
 }
