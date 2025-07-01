@@ -122,22 +122,20 @@ function HomePage() {
   return (
     <div className="min-h-screen bg-white relative">
       {/* Global Waves Background */}
-      <div className="waves-container">
-        <Waves 
-          lineColor="rgba(148, 163, 184, 0.15)"
-          backgroundColor="transparent"
-          waveSpeedX={0.008}
-          waveSpeedY={0.006}
-          waveAmpX={20}
-          waveAmpY={10}
-          friction={0.96}
-          tension={0.002}
-          maxCursorMove={60}
-          xGap={18}
-          yGap={45}
-          className="fixed inset-0 z-0"
-        />
-      </div>
+      <Waves 
+        lineColor="rgba(148, 163, 184, 0.2)"
+        backgroundColor="transparent"
+        waveSpeedX={0.008}
+        waveSpeedY={0.006}
+        waveAmpX={25}
+        waveAmpY={15}
+        friction={0.96}
+        tension={0.002}
+        maxCursorMove={80}
+        xGap={15}
+        yGap={40}
+        className="fixed inset-0 z-0"
+      />
 
       {/* Navigation */}
       <nav className="fixed w-full bg-white/95 backdrop-blur-sm z-50 shadow-sm">

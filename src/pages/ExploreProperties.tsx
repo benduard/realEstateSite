@@ -171,22 +171,20 @@ const ExploreProperties: React.FC = () => {
   return (
     <div className="min-h-screen bg-white relative">
       {/* Waves Background */}
-      <div className="waves-container">
-        <Waves 
-          lineColor="rgba(148, 163, 184, 0.1)"
-          backgroundColor="transparent"
-          waveSpeedX={0.006}
-          waveSpeedY={0.004}
-          waveAmpX={15}
-          waveAmpY={8}
-          friction={0.97}
-          tension={0.001}
-          maxCursorMove={40}
-          xGap={22}
-          yGap={50}
-          className="fixed inset-0 z-0"
-        />
-      </div>
+      <Waves 
+        lineColor="rgba(148, 163, 184, 0.15)"
+        backgroundColor="transparent"
+        waveSpeedX={0.006}
+        waveSpeedY={0.004}
+        waveAmpX={20}
+        waveAmpY={12}
+        friction={0.97}
+        tension={0.001}
+        maxCursorMove={60}
+        xGap={18}
+        yGap={45}
+        className="fixed inset-0 z-0"
+      />
 
       {/* Header */}
       <nav className="fixed w-full bg-white/95 backdrop-blur-sm z-50 shadow-sm">
