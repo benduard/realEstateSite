@@ -16,12 +16,6 @@ body {
   -webkit-overflow-scrolling: touch;
 }
 
-/* Ensure fixed elements don't interfere with scrolling on mobile */
-.fixed {
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
-}
-
 /* Add a scrollbar style */
 ::-webkit-scrollbar {
   width: 8px;
@@ -35,15 +29,16 @@ body {
   @apply bg-slate-300 rounded-full hover:bg-slate-400 transition-colors duration-200;
 }
 
-/* Optimize mobile performance */
-@media (max-width: 768px) {
-  * {
+/* Optimize mobile performance - only apply to desktop */
+@media (min-width: 769px) {
+  .fixed {
     -webkit-transform: translateZ(0);
     transform: translateZ(0);
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
   }
-  
+}
+
+/* Mobile-specific optimizations */
+@media (max-width: 768px) {
   /* Reduce motion on mobile for better performance */
   @media (prefers-reduced-motion: reduce) {
     * {
