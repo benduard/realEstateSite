@@ -4,10 +4,22 @@
 
 html {
   scroll-behavior: smooth;
+  /* Prevent horizontal scrolling */
+  overflow-x: hidden;
 }
 
 body {
   @apply antialiased;
+  /* Prevent horizontal scrolling */
+  overflow-x: hidden;
+  /* Improve mobile scrolling performance */
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Ensure fixed elements don't interfere with scrolling on mobile */
+.fixed {
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
 }
 
 /* Add a scrollbar style */
@@ -21,4 +33,23 @@ body {
 
 ::-webkit-scrollbar-thumb {
   @apply bg-slate-300 rounded-full hover:bg-slate-400 transition-colors duration-200;
+}
+
+/* Optimize mobile performance */
+@media (max-width: 768px) {
+  * {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+  
+  /* Reduce motion on mobile for better performance */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
 }

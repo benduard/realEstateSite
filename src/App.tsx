@@ -120,8 +120,8 @@ function HomePage() {
   ]
 
   return (
-    <div className="min-h-screen bg-white relative">
-      {/* Global Waves Background */}
+    <div className="min-h-screen bg-white relative overflow-x-hidden">
+      {/* Global Waves Background - Fixed positioning for consistent display */}
       <Waves 
         lineColor="rgba(148, 163, 184, 0.2)"
         backgroundColor="transparent"
@@ -169,7 +169,7 @@ function HomePage() {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden">
+          <div className="md:hidden bg-white/95 backdrop-blur-sm">
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
               <Navigation />
             </div>
@@ -204,7 +204,7 @@ function HomePage() {
       </motion.div>
 
       {/* Main Content */}
-      <main className="relative z-10">
+      <main className="relative z-10 bg-white">
         <SectionWrapper id="properties">
           <FeaturedListings />
         </SectionWrapper>

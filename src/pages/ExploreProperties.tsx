@@ -169,8 +169,8 @@ const ExploreProperties: React.FC = () => {
   });
 
   return (
-    <div className="min-h-screen bg-white relative">
-      {/* Waves Background */}
+    <div className="min-h-screen bg-white relative overflow-x-hidden">
+      {/* Waves Background - Fixed positioning for consistent display */}
       <Waves 
         lineColor="rgba(148, 163, 184, 0.15)"
         backgroundColor="transparent"
@@ -331,7 +331,7 @@ const ExploreProperties: React.FC = () => {
       )}
 
       {/* Properties Grid */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10 bg-white">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredProperties.map((property) => (
             <motion.div

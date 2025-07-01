@@ -142,6 +142,7 @@ export function Waves({
   const linesRef = useRef<any[]>([])
   const animationRef = useRef<number>()
   const isMobileRef = useRef(false)
+  const scrollYRef = useRef(0)
   const mouseRef = useRef({
     x: -10,
     y: 0,
@@ -167,7 +168,15 @@ export function Waves({
 
     function setSize() {
       if (!container || !canvas) return
-      boundingRef.current = container.getBoundingClientRect()
+      
+      // Use viewport dimensions for fixed positioning
+      const rect = container.getBoundingClientRect()
+      boundingRef.current = {
+        width: window.innerWidth,
+        height: window.innerHeight,
+        left: 0,
+        top: 0
+      }
       
       canvas.width = boundingRef.current.width
       canvas.height = boundingRef.current.height
@@ -177,17 +186,17 @@ export function Waves({
       const { width, height } = boundingRef.current
       linesRef.current = []
       
-      // Reduce complexity on mobile
-      const mobileMultiplier = isMobileRef.current ? 1.5 : 1
+      // Reduce complexity on mobile for better performance
+      const mobileMultiplier = isMobileRef.current ? 1.8 : 1
       const adjustedXGap = xGap * mobileMultiplier
       const adjustedYGap = yGap * mobileMultiplier
       
-      const oWidth = width + 200
-      const oHeight = height + 30
+      const oWidth = width + 400 // Extend beyond viewport
+      const oHeight = height + 400 // Extend beyond viewport
       const totalLines = Math.ceil(oWidth / adjustedXGap)
       const totalPoints = Math.ceil(oHeight / adjustedYGap)
-      const xStart = (width - adjustedXGap * totalLines) / 2
-      const yStart = (height - adjustedYGap * totalPoints) / 2
+      const xStart = (width - adjustedXGap * totalLines) / 2 - 200
+      const yStart = (height - adjustedYGap * totalPoints) / 2 - 200
       
       for (let i = 0; i <= totalLines; i++) {
         const pts = []
@@ -314,27 +323,37 @@ export function Waves({
     }
 
     function onResize() {
-      setSize()
-      setLines()
+      // Debounce resize for better performance
+      clearTimeout(onResize.timeout)
+      onResize.timeout = setTimeout(() => {
+        isMobileRef.current = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768
+        setSize()
+        setLines()
+      }, 100)
+    }
+    onResize.timeout = null
+    
+    function onScroll() {
+      scrollYRef.current = window.scrollY
     }
     
     function onMouseMove(e: MouseEvent) {
       if (isMobileRef.current) return
-      updateMouse(e.pageX, e.pageY)
+      updateMouse(e.clientX, e.clientY)
     }
     
     function onTouchMove(e: TouchEvent) {
-      if (!isMobileRef.current) return
-      e.preventDefault()
+      // Don't prevent default on mobile to allow normal scrolling
+      if (isMobileRef.current) return
+      
       const touch = e.touches[0]
       updateMouse(touch.clientX, touch.clientY)
     }
     
     function updateMouse(x: number, y: number) {
       const mouse = mouseRef.current
-      const b = boundingRef.current
-      mouse.x = x - b.left
-      mouse.y = y - b.top + window.scrollY
+      mouse.x = x
+      mouse.y = y
       if (!mouse.set) {
         mouse.sx = mouse.x
         mouse.sy = mouse.y
@@ -349,14 +368,21 @@ export function Waves({
     animationRef.current = requestAnimationFrame(tick)
     
     window.addEventListener("resize", onResize)
-    window.addEventListener("mousemove", onMouseMove)
-    window.addEventListener("touchmove", onTouchMove, { passive: false })
+    window.addEventListener("scroll", onScroll, { passive: true })
+    
+    if (!isMobileRef.current) {
+      window.addEventListener("mousemove", onMouseMove)
+    }
+    
+    // Use passive touch events to not interfere with scrolling
+    window.addEventListener("touchmove", onTouchMove, { passive: true })
 
     return () => {
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current)
       }
       window.removeEventListener("resize", onResize)
+      window.removeEventListener("scroll", onScroll)
       window.removeEventListener("mousemove", onMouseMove)
       window.removeEventListener("touchmove", onTouchMove)
     }
@@ -381,22 +407,33 @@ export function Waves({
         backgroundColor,
       }}
       className={cn(
-        "absolute top-0 left-0 w-full h-full overflow-hidden",
+        "absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none",
         className,
       )}
     >
-      <div
-        className={cn(
-          "absolute top-0 left-0 rounded-full",
-          "w-2 h-2 bg-foreground/10",
-        )}
+      {!isMobileRef.current && (
+        <div
+          className={cn(
+            "absolute top-0 left-0 rounded-full",
+            "w-2 h-2 bg-foreground/10",
+          )}
+          style={{
+            transform:
+              "translate3d(calc(var(--x) - 50%), calc(var(--y) - 50%), 0)",
+            willChange: "transform",
+          }}
+        />
+      )}
+      <canvas 
+        ref={canvasRef} 
+        className="block w-full h-full"
         style={{
-          transform:
-            "translate3d(calc(var(--x) - 50%), calc(var(--y) - 50%), 0)",
-          willChange: "transform",
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          pointerEvents: 'none'
         }}
       />
-      <canvas ref={canvasRef} className="block w-full h-full" />
     </div>
   )
 }
